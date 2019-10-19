@@ -20,13 +20,28 @@ from textblob import TextBlob
 #from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
 import matplotlib.pyplot as plt
 from textblob import TextBlob
-
+import googletrans
+from googletrans import Translator
 
 # nltk.download('stopwords')
 data = pd.read_csv('trafico.csv', encoding='latin-1')
 print(data.head)
-indicoio.config.api_key = 'YOUR_API_KEY';
-print("Top words")
-indicoio.sentiment = "El agua ya afecta La Fontana zona 4. Urgen acciones @netobran, @MuniMixco_. También la conexión a Bosques.prensa_libre @EmisorasUnidas @Guatevision_tv @CanalAntigua @TN23NOTICIAS @info502 @traficogt @soy_502 #traficogt @vinicionoti7 @NuevoMundoGT @Noti7Guatemala @TelediarioGT https://t.co/QfEe0vcjmJ"
-print (indicoio.sentiment)
+translator = Translator()
+data_trans = translator.translate('"#traficogt la Roosevelt esta de la gran puta. Choques hacia mixco. Choques hacia tikal futura.MATENME POR LA GRAN PUTAAAA ARZU LA PUTA QUE TE PARIO. AMILCAR MONTEJO TU MADRE"')
+print(data_trans.text)
 
+blob = TextBlob(data_trans.text)
+print(blob)
+blob.tags           # [('The', 'DT'), ('titular', 'JJ'),
+
+                    #  ('threat', 'NN'), ('of', 'IN'), ...]
+print(blob.tags)
+blob.noun_phrases   # WordList(['titular threat', 'blob',
+
+                    #            'ultimate movie monster',
+
+                    #            'amoeba-like mass', ...])
+
+print(blob.noun_phrases)
+for sentence in blob.sentences:
+    print(sentence.sentiment.polarity)
